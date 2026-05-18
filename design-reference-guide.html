@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Reference Guide — Time Tracking & Mental Wellness App</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --surface-hover: #222;
+    --border: #2a2a2a;
+    --text: #e8e8e8;
+    --text-muted: #888;
+    --accent: #6c9cff;
+    --accent-soft: rgba(108,156,255,0.12);
+    --green: #4ade80;
+    --purple: #a78bfa;
+    --orange: #fb923c;
+    --pink: #f472b6;
+    --teal: #2dd4bf;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  .header {
+    padding: 80px 60px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header h1 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .header .subtitle {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 700px;
+  }
+
+  .header .meta {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .toc {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 30px 60px;
+  }
+
+  .toc h2 {
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.2s;
+    border: 1px solid var(--border);
+  }
+
+  .toc-item:hover {
+    background: var(--surface-hover);
+  }
+
+  .toc-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 60px 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
+  .section-tag {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .section h2 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .section > .section-desc {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 800px;
+    margin-bottom: 40px;
+    margin-top: 8px;
+  }
+
+  .ref-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    transition: border-color 0.2s;
+  }
+
+  .ref-card:hover {
+    border-color: #444;
+  }
+
+  .ref-card img {
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-card-body {
+    padding: 28px 32px;
+  }
+
+  .ref-card-body h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .ref-card-body .ref-type {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .ref-card-body p {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .ref-card-body .takeaways {
+    background: var(--accent-soft);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+
+  .ref-card-body .takeaways h4 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .ref-card-body .takeaways ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .ref-card-body .takeaways li {
+    font-size: 14px;
+    color: var(--text);
+    padding: 3px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .ref-card-body .takeaways li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .ref-link {
+    display: inline-block;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 0;
+    border-bottom: 1px solid transparent;
+  }
+
+  .ref-link:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; }
+    .header, .toc, .section { padding-left: 24px; padding-right: 24px; }
+    .header h1 { font-size: 28px; }
+  }
+
+  .footer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 60px 80px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Design Reference Guide</h1>
+  <p class="subtitle">A curated visual reference for building a time tracking and mental wellness app with character-driven design. Covering UX patterns, visual aesthetics, feature mechanics, and gamification strategies.</p>
+  <p class="meta">Compiled May 17, 2026 &nbsp;·&nbsp; 24 references across 5 categories</p>
+</div>
+
+<div class="toc">
+  <h2>Categories</h2>
+  <div class="toc-grid">
+    <a href="#time-tracking" class="toc-item">
+      <span class="toc-dot" style="background: var(--accent)"></span>
+      Time Tracking & Productivity
+    </a>
+    <a href="#wellness" class="toc-item">
+      <span class="toc-dot" style="background: var(--green)"></span>
+      Mental Wellness & Mood
+    </a>
+    <a href="#habit" class="toc-item">
+      <span class="toc-dot" style="background: var(--orange)"></span>
+      Habit Tracking & Journaling
+    </a>
+    <a href="#character" class="toc-item">
+      <span class="toc-dot" style="background: var(--pink)"></span>
+      Character-Driven & Gamified
+    </a>
+    <a href="#resources" class="toc-item">
+      <span class="toc-dot" style="background: var(--purple)"></span>
+      Design Resources & Trends
+    </a>
+  </div>
+</div>
+
+<!-- ==================== SECTION 1: TIME TRACKING ==================== -->
+<div class="section" id="time-tracking">
+  <div class="section-header">
+    <span class="section-tag" style="background: var(--accent); color: #000;">01</span>
+    <h2>Time Tracking & Productivity</h2>
+  </div>
+  <p class="section-desc">Apps that excel at making time logging feel effortless. The best time trackers balance comprehensive features with clean, uncluttered interfaces that minimize the time spent managing the app itself.</p>
+
+  <!-- Forest -->
+  <div class="ref-card">
+    <img src="images/forest-app.png" alt="Forest App">
+    <div class="ref-card-body">
+      <h3>Forest: Stay Focused</h3>
+      <div class="ref-type">Focus Timer · Gamification · Nature Theme</div>
+      <p>Forest gamifies productivity by turning focused work sessions into a virtual garden. Set a timer, plant a tree, and watch it grow as you stay off your phone. The nature theme creates an organic, calming feel that makes focus sessions feel rewarding rather than restrictive.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Growing visual (tree) as progress indicator is far more engaging than a countdown</li>
+          <li>Onboarding is instant — usable within 30 seconds of downloading</li>
+          <li>Theme customization (Forest, Desert, Winter, Jungle) adds personalization</li>
+          <li>Real-world impact (planting real trees) gives deeper meaning to the mechanic</li>
+        </ul>
+      </div>
+      <a href="https://www.forestapp.cc/" class="ref-link" target="_blank">Visit forestapp.cc →</a>
+    </div>
+  </div>
+
+  <!-- Forest Gamification Analysis -->
+  <div class="ref-card">
+    <img src="images/forest-gamification.png" alt="Forest Gamification Analysis">
+    <div class="ref-card-body">
+      <h3>GoodUX: Forest's Gamified Focus (Case Study)</h3>
+      <div class="ref-type">UX Analysis · Gamification Mechanics</div>
+      <p>An in-depth analysis of how Forest uses gamification to improve engagement. The app's onboarding uses a spotlight to highlight just two essential functions — the timer and species selector — keeping the first experience extremely focused.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Spotlight onboarding: highlight only the 1-2 essential actions on first use</li>
+          <li>Loss aversion works — killing a tree feels worse than missing a timer</li>
+          <li>The visual reward (a forest over time) creates a long-term collection incentive</li>
+        </ul>
+      </div>
+      <a href="https://goodux.appcues.com/blog/forests-gamified-focus" class="ref-link" target="_blank">Read full analysis →</a>
+    </div>
+  </div>
+
+  <!-- Focumon -->
+  <div class="ref-card">
+    <img src="images/focumon.png" alt="Focumon">
+    <div class="ref-card-body">
+      <h3>Focumon: Monster Collection Focus Timer</h3>
+      <div class="ref-type">Character Collection · Focus Timer · Gamification</div>
+      <p>Focumon combines focus timing with monster collection gameplay — a character-driven take on the Forest formula. Users collect cute creatures by completing focus sessions, adding a collectible/RPG dimension to productivity.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Creature collection as focus reward adds a "gotta catch 'em all" motivation layer</li>
+          <li>Live focus sessions with others boost accountability through social pressure</li>
+          <li>Shows how to evolve the Forest concept with deeper character mechanics</li>
+        </ul>
+      </div>
+      <a href="https://www.focumon.com/" class="ref-link" target="_blank">Visit focumon.com →</a>
+    </div>
+  </div>
+
+  <!-- Eleken Time Tracking Design Guide -->
+  <div class="ref-card">
+    <img src="images/eleken-time-tracking.png" alt="Eleken Time Tracking Design Guide">
+    <div class="ref-card-body">
+      <h3>Eleken: Time Tracking App Design Guide</h3>
+      <div class="ref-type">Design Article · UX Best Practices · Updated May 2026</div>
+      <p>A comprehensive guide covering UI/UX principles for time tracking apps. Covers the essential workflow of logging, analyzing, and billing time, and breaks down what makes apps like Toggl, Tick, and Paymo successful from a design perspective.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Minimalist, clear, and simple UI saves users time managing the app itself</li>
+          <li>A timer, detailed reporting, and project management are the essential trio</li>
+          <li>Toggl's "quirky design and simplicity" is a proven formula</li>
+          <li>Pomodoro integration (like Paymo) can enhance focus tracking</li>
+        </ul>
+      </div>
+      <a href="https://www.eleken.co/blog-posts/time-tracking-app-design-how-to-make-an-app-that-increases-productivity" class="ref-link" target="_blank">Read the full guide →</a>
+    </div>
+  </div>
+
+  <!-- Dribbble Time Tracker -->
+  <div class="ref-card">
+    <img src="images/dribbble-time-tracker.png" alt="Dribbble Time Tracker Designs">
+    <div class="ref-card-body">
+      <h3>Dribbble: Time Tracker Design Gallery</h3>
+      <div class="ref-type">Design Inspiration · 582 Designs · Visual Gallery</div>
+      <p>A browseable gallery of 582 time tracker designs from professional designers worldwide. Great for scanning current visual trends in time tracking UI — dark modes, gradient accents, card-based layouts, and data visualization patterns.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Browse for specific UI patterns: dashboards, timer screens, reports, settings</li>
+          <li>Current trends lean toward dark UI with accent gradients and rounded cards</li>
+          <li>Data visualization (charts, timelines) is a key differentiator between designs</li>
+        </ul>
+      </div>
+      <a href="https://dribbble.com/tags/time-tracker" class="ref-link" target="_blank">Browse on Dribbble →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 2: WELLNESS ==================== -->
+<div class="section" id="wellness">
+  <div class="section-header">
+    <span class="section-tag" style="background: var(--green); color: #000;">02</span>
+    <h2>Mental Wellness & Mood</h2>
+  </div>
+  <p class="section-desc">Apps designed to support emotional wellbeing. The core challenge is building an interface that requires almost nothing of the user while providing relief — rethinking "engagement" as ease of finding peace, not time on screen.</p>
+
+  <!-- Headspace -->
+  <div class="ref-card">
+    <img src="images/headspace.png" alt="Headspace">
+    <div class="ref-card-body">
+      <h3>Headspace</h3>
+      <div class="ref-type">Meditation · Mental Health · AI Companion</div>
+      <p>Headspace's design philosophy is structure meets warmth. The signature orange circle logo, whimsical animations, and cheerful aesthetic create a brand that feels both trustworthy and approachable. Their new "Ebb" AI companion shows how character-driven elements are entering the wellness space.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Structured guidance with playful, friendly visuals (not clinical)</li>
+          <li>Bright, warm color palette that motivates without overwhelming</li>
+          <li>The "Ebb" AI companion is a character-driven approach to wellness worth studying</li>
+          <li>Clear two-track offering (self-guided vs. therapy) as UI organization model</li>
+        </ul>
+      </div>
+      <a href="https://www.headspace.com/" class="ref-link" target="_blank">Visit headspace.com →</a>
+    </div>
+  </div>
+
+  <!-- Daylio -->
+  <div class="ref-card">
+    <img src="images/daylio.png" alt="Daylio">
+    <div class="ref-card-body">
+      <h3>Daylio: Mood Tracker & Micro-Diary</h3>
+      <div class="ref-type">Mood Tracking · Journaling · Data Visualization</div>
+      <p>Daylio's genius is making mood logging take just two taps: select a mood on a five-point scale, then choose activities from a customizable icon list. No typing required. The "Year in Pixels" visualization turns a year of mood data into a single beautiful, scannable image.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Two-tap entry is the gold standard for reducing friction in daily logging</li>
+          <li>Icon/emoji-based input is faster and more engaging than text</li>
+          <li>"Year in Pixels" is a brilliant way to visualize long-term patterns</li>
+          <li>Full customization of moods, activities, icons, and color themes</li>
+        </ul>
+      </div>
+      <a href="https://daylio.net/" class="ref-link" target="_blank">Visit daylio.net →</a>
+    </div>
+  </div>
+
+  <!-- Calm (link only — blank screenshot) -->
+  <div class="ref-card">
+    <div class="ref-card-body">
+      <h3>Calm</h3>
+      <div class="ref-type">Meditation · Sleep · Relaxation · (Screenshot unavailable — JS-heavy site)</div>
+      <p>Where Headspace is your coach, Calm is your retreat. The design philosophy centers on immediate immersion: cinematic nature scenes, soft ambient colors, and smooth animations that soothe from the first moment. Calm's approach to design is less about structure and more about creating an environment.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Photorealistic nature imagery creates instant emotional response</li>
+          <li>Ambient sound + visuals = immersive experience beyond typical app UI</li>
+          <li>Content-first design — the experience IS the interface</li>
+          <li>Caters to both beginners and advanced users without cluttering the UI</li>
+        </ul>
+      </div>
+      <a href="https://www.calm.com/" class="ref-link" target="_blank">Visit calm.com →</a>
+    </div>
+  </div>
+
+  <!-- Gapsy Mental Health Design -->
+  <div class="ref-card">
+    <img src="images/gapsy-mental-health.png" alt="Gapsy Mental Health App Design Guide">
+    <div class="ref-card-body">
+      <h3>Gapsy Studio: Mental Health App Design Best Practices</h3>
+      <div class="ref-type">Design Guide · Clinical Safety · User Retention · Jan 2026</div>
+      <p>A 13-minute read covering the intersection of user retention and clinical safety in mental health app design. Important because your app sits at this exact intersection — tracking time and mood requires both engagement hooks and responsible design.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Blues and greens evoke calm, trust, and clarity — ideal for mood tracking</li>
+          <li>Reduce "noise" from notifications and complex data that can trigger anxiety</li>
+          <li>Make logging nearly invisible while surfacing insights in clean dashboards</li>
+          <li>Avoid pressure tactics like aggressive daily streak notifications for wellness features</li>
+        </ul>
+      </div>
+      <a href="https://gapsystudio.com/blog/mental-health-app-design/" class="ref-link" target="_blank">Read the full guide →</a>
+    </div>
+  </div>
+
+  <!-- Stormotion -->
+  <div class="ref-card">
+    <img src="images/stormotion-mental-health.png" alt="Stormotion Mental Health App Development">
+    <div class="ref-card-body">
+      <h3>Stormotion: Mental Health App Development Case Studies</h3>
+      <div class="ref-type">Development Guide · Case Studies · Feature Breakdown</div>
+      <p>A development-focused resource with real case studies from apps they've built with 500K+ users. Covers the full stack from feature planning to visual design, with emphasis on interactive courses, meditation platforms, and therapy systems.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Real production case studies showing what actually ships vs. design concepts</li>
+          <li>Feature prioritization frameworks for wellness apps at scale</li>
+          <li>Integration patterns for wearables and biometric data</li>
+        </ul>
+      </div>
+      <a href="https://stormotion.io/blog/how-to-develop-a-mental-health-app/" class="ref-link" target="_blank">Read the case studies →</a>
+    </div>
+  </div>
+
+  <!-- Behance Mental Health -->
+  <div class="ref-card">
+    <img src="images/behance-mental-health.png" alt="Behance Mental Health App Designs">
+    <div class="ref-card-body">
+      <h3>Behance: Mental Health App Design Gallery</h3>
+      <div class="ref-type">Design Inspiration · 10,000+ Projects · Case Studies</div>
+      <p>Over 10,000 mental health app design projects on Behance — from polished case studies (Soulspace, Emora, CalmMate, Hoppy) to UI kits and concept explorations. Many include full UX flows, wireframes, and user research documentation.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Search for specific patterns: "mood tracking UI", "wellness onboarding", "therapy app"</li>
+          <li>Case studies often include design rationale and user research — not just visuals</li>
+          <li>Current visual trend: soft pastels, organic shapes, nature-inspired illustration</li>
+        </ul>
+      </div>
+      <a href="https://www.behance.net/search/projects/Mental%20Health%20App" class="ref-link" target="_blank">Browse on Behance →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 3: HABIT ==================== -->
+<div class="section" id="habit">
+  <div class="section-header">
+    <span class="section-tag" style="background: var(--orange); color: #000;">03</span>
+    <h2>Habit Tracking & Journaling</h2>
+  </div>
+  <p class="section-desc">Apps that help users build routines and reflect. The best ones make daily logging feel satisfying rather than obligatory, using visual progress and gentle accountability.</p>
+
+  <!-- Streaks -->
+  <div class="ref-card">
+    <img src="images/streaks.png" alt="Streaks App">
+    <div class="ref-card-body">
+      <h3>Streaks: Apple Design Award Winner</h3>
+      <div class="ref-type">Habit Tracker · iOS Native · Minimal Design</div>
+      <p>Streaks is the gold standard for minimal habit tracking on iOS. Habits are displayed as big circular buttons — tap and hold to mark done. The design is distraction-free and deeply integrated into Apple's ecosystem (widgets, Health app, Apple Watch).</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Large, tappable circular UI elements are satisfying and accessible</li>
+          <li>78 color themes and 600+ icons for personalization without complexity</li>
+          <li>Best-in-class widget design — the app lives on your home screen</li>
+          <li>Health app integration auto-completes tasks (water, caffeine, steps)</li>
+        </ul>
+      </div>
+      <a href="https://streaksapp.com/" class="ref-link" target="_blank">Visit streaksapp.com →</a>
+    </div>
+  </div>
+
+  <!-- Aesthetic Habit Trackers -->
+  <div class="ref-card">
+    <img src="images/aesthetic-trackers.png" alt="Aesthetic Habit Tracker Apps">
+    <div class="ref-card-body">
+      <h3>Gridfiti: 10 Cute & Aesthetic Habit Tracker Apps (2026)</h3>
+      <div class="ref-type">App Roundup · Visual Comparison · Aesthetic Focus</div>
+      <p>A curated roundup focused specifically on aesthetic and visually appealing habit trackers. Covers Finch, Onrise, Habitify, Habio, HabitKit, and others — with emphasis on which apps combine functionality with feel-good design.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Onrise: elegant minimalist tracker with built-in reflection prompts — clean and calming</li>
+          <li>HabitKit: GitHub-style contribution grid for habit visualization</li>
+          <li>Habio: splits goals into small actionable steps for effortless habit formation</li>
+          <li>"Cozy virtual planners" and "gamified pet companions" are the two main aesthetic lanes</li>
+        </ul>
+      </div>
+      <a href="https://gridfiti.com/aesthetic-habit-tracker-apps/" class="ref-link" target="_blank">Read the full roundup →</a>
+    </div>
+  </div>
+
+  <!-- Craftwork Journal UI Kit -->
+  <div class="ref-card">
+    <img src="images/craftwork-journal.png" alt="Craftwork Journaling & Mental Wellness App UI Kit">
+    <div class="ref-card-body">
+      <h3>Happyer: Journaling & Mental Wellness Mobile App UI Kit</h3>
+      <div class="ref-type">UI Kit · Figma · 164+ Screens · Dark & Light Modes</div>
+      <p>A premium UI kit designed specifically for mood tracking and journaling apps. 82+ mobile screens covering mood selection, journal entries, memory timelines, reminders, and user profiles. Both dark and light modes. Built with Figma variables and components.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Shows how to structure screens for: mood input, journaling, settings, onboarding</li>
+          <li>Clean, elegant, emotionally resonant interface patterns</li>
+          <li>Audio journaling UI (voice recording with waveform) as alternative to text</li>
+          <li>Available for $29 if you want to use as a starting point for your own designs</li>
+        </ul>
+      </div>
+      <a href="https://craftwork.design/product/journaling--mood-tracking-mobile-app-ui-kit" class="ref-link" target="_blank">View on Craftwork →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 4: CHARACTER-DRIVEN ==================== -->
+<div class="section" id="character">
+  <div class="section-header">
+    <span class="section-tag" style="background: var(--pink); color: #000;">04</span>
+    <h2>Character-Driven & Gamified</h2>
+  </div>
+  <p class="section-desc">Apps where characters, mascots, and game mechanics aren't just decoration — they're the core design philosophy. Since your app is character-driven, these are especially relevant references.</p>
+
+  <!-- Finch -->
+  <div class="ref-card">
+    <img src="images/finch.png" alt="Finch Self-Care Pet App">
+    <div class="ref-card-body">
+      <h3>Finch: Self-Care Pet</h3>
+      <div class="ref-type">Character-Driven · Self-Care · Pet Companion · 5.0 Rating</div>
+      <p>Finch is arguably the closest existing app to what you're building — a character-driven self-care experience where your virtual pet bird grows as you complete wellness goals. 650K monthly installs, $1.75M monthly revenue, and a perfect 5.0 rating with 500K+ reviews. The character IS the product.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Pet grows as YOU grow — the character mirrors the user's progress</li>
+          <li>Calming colors, smooth animations, and skeuomorphic design create immersion</li>
+          <li>Beloved by neurodivergent users — gentle, supportive, never punishing</li>
+          <li>Confetti on goal completion and pet reactions add micro-delight moments</li>
+          <li>Warning: home screen can feel cluttered with too many competing elements</li>
+        </ul>
+      </div>
+      <a href="https://www.finchcare.com/" class="ref-link" target="_blank">Visit finchcare.com →</a>
+    </div>
+  </div>
+
+  <!-- Finch Screens Design -->
+  <div class="ref-card">
+    <img src="images/finch-screens.png" alt="Finch App Screenshots on ScreensDesign">
+    <div class="ref-card-body">
+      <h3>ScreensDesign: Finch App Showcase</h3>
+      <div class="ref-type">App Screenshots · Onboarding Flow · Business Metrics</div>
+      <p>A detailed showcase of Finch's actual app screens, onboarding flow (36 steps!), paywall design, and business metrics. Shows how the 18-step core onboarding introduces the pet character gradually while collecting user preferences.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>36-step onboarding seems long but works because each step builds investment</li>
+          <li>Soft paywall (free trial) converts well for this type of emotional product</li>
+          <li>$2M/month revenue proves character-driven wellness is a viable market</li>
+        </ul>
+      </div>
+      <a href="https://screensdesign.com/showcase/finch-self-care-pet" class="ref-link" target="_blank">View full showcase →</a>
+    </div>
+  </div>
+
+  <!-- Finch Critique -->
+  <div class="ref-card">
+    <img src="images/finch-critique.png" alt="Finch Design Critique from IXD@Pratt">
+    <div class="ref-card-body">
+      <h3>IXD@Pratt: Design Critique of Finch (2026)</h3>
+      <div class="ref-type">Academic Critique · UX Analysis · Feb 2026</div>
+      <p>A Pratt Institute design critique of Finch that examines both strengths and weaknesses. Especially valuable because it identifies specific pain points — decision fatigue from too many action options, cluttered UI, and information hierarchy issues on the home screen.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Avoid Finch's mistake: too many actions competing for attention on the home screen</li>
+          <li>The pet interaction loop is strong — build yours around a similarly tight core loop</li>
+          <li>Skeuomorphic design (mimicking real-world interactions) increases immersion</li>
+          <li>Academic critique = honest assessment of what doesn't work, not just praise</li>
+        </ul>
+      </div>
+      <a href="https://ixd.prattsi.org/2026/02/design-critique-finch-self-care-pet-ios-app/" class="ref-link" target="_blank">Read the critique →</a>
+    </div>
+  </div>
+
+  <!-- Habitica -->
+  <div class="ref-card">
+    <img src="images/habitica.png" alt="Habitica">
+    <div class="ref-card-body">
+      <h3>Habitica: Gamify Your Life (RPG Habit Tracker)</h3>
+      <div class="ref-type">RPG · Habit Tracker · Open Source · 4M+ Users</div>
+      <p>Habitica goes full RPG: your avatar levels up when you complete tasks, takes damage when you skip dailies, and earns gold for gear and pets. Social features include party quests where each member's task completion does damage to a boss monster.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Three task types (Habits, Dailies, To-Dos) as an organizational framework</li>
+          <li>HP loss for missed dailies creates accountability — but can feel punishing</li>
+          <li>Social quests turn habit-building into a cooperative game</li>
+          <li>Retro pixel art is charming but limiting — your character art can go further</li>
+          <li>Open source — you can study the actual codebase on GitHub</li>
+        </ul>
+      </div>
+      <a href="https://habitica.com/" class="ref-link" target="_blank">Visit habitica.com →</a>
+    </div>
+  </div>
+
+  <!-- Duolingo Breakdown -->
+  <div class="ref-card">
+    <img src="images/duolingo-breakdown.png" alt="Duolingo Gamification as Design Language">
+    <div class="ref-card-body">
+      <h3>Blake Crosley: Duolingo — Gamification as Design Language</h3>
+      <div class="ref-type">Design Analysis · Gamification Psychology · Streak Mechanics</div>
+      <p>An 11-minute deep dive arguing that Duolingo is not a language app that uses gamification — it's a gamification engine that happens to teach languages. Every design decision exists to solve one problem: getting users to open the app tomorrow.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Design gamification as a philosophy, not a layer — weave it into every surface</li>
+          <li>Streak mechanics are so powerful people plan vacations around maintaining them</li>
+          <li>Character personality drives emotional connection — Duo's guilt trips are iconic</li>
+          <li>The design is "bright, loud, playful, and relentlessly optimized"</li>
+        </ul>
+      </div>
+      <a href="https://blakecrosley.com/guides/design/duolingo" class="ref-link" target="_blank">Read the full analysis →</a>
+    </div>
+  </div>
+
+  <!-- Duolingo 925 Studios -->
+  <div class="ref-card">
+    <img src="images/duolingo-925.png" alt="Duolingo UX Breakdown by 925 Studios">
+    <div class="ref-card-body">
+      <h3>925 Studios: Duolingo UX Breakdown — Why 50M+ Users Show Up Daily</h3>
+      <div class="ref-type">UX Breakdown · Retention Mechanics · Mar 2026</div>
+      <p>A 2026 analysis of Duolingo's design and engagement engine. Covers the specific mechanics — XP, leagues, streak freezes, hearts system — and how each creates a different type of motivation (competitive, social, loss aversion, collection).</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Multiple motivation types: competition (leagues), loss aversion (streaks), collection (achievements)</li>
+          <li>Mascot drove 4.5x increase in daily active users</li>
+          <li>Character animation reacts in real-time to user actions — not just static images</li>
+          <li>Progressive difficulty keeps users in flow state</li>
+        </ul>
+      </div>
+      <a href="https://www.925studios.co/blog/duolingo-design-breakdown" class="ref-link" target="_blank">Read the full breakdown →</a>
+    </div>
+  </div>
+
+  <!-- Mascot Placements -->
+  <div class="ref-card">
+    <img src="images/mascot-placements.png" alt="Where to Use Your App Mascot">
+    <div class="ref-card-body">
+      <h3>Ziggle.art: 10 High-Impact Mascot Placements (2026)</h3>
+      <div class="ref-type">Mascot Strategy · UX Placement Guide · ROI Data</div>
+      <p>A practical guide to where and how to deploy your character mascot across your app. Covers the 10 highest-ROI placements: onboarding, empty states, loading screens, success moments, error screens, push notifications, app icon, progress indicators, tooltips, and marketing.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Most apps only use mascots in 2-3 places — using all 10 drives 41% higher emotional connection</li>
+          <li>Mascot in push notifications turns abstract alerts into relationship moments</li>
+          <li>Empty states and error screens are prime mascot real estate — turn frustration into delight</li>
+          <li>25% reduction in user drop-off when mascots appear in onboarding</li>
+        </ul>
+      </div>
+      <a href="https://ziggle.art/app-mascot-placements" class="ref-link" target="_blank">Read the placement guide →</a>
+    </div>
+  </div>
+
+  <!-- Mascots UX -->
+  <div class="ref-card">
+    <img src="images/mascots-ux.png" alt="How Mascots Improve User Experience">
+    <div class="ref-card-body">
+      <h3>Raw.Studio: How Mascots Improve User Experience</h3>
+      <div class="ref-type">Mascot Design Theory · UX Research · Brand Examples</div>
+      <p>A visual overview of iconic app mascots — Duo (Duolingo), Wumpus (Discord), Freddie (Mailchimp), Octocat (GitHub), Snoo (Reddit) — and the psychology behind why character-driven design works for user engagement and brand recall.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Great mascots are simple enough to remember as a silhouette</li>
+          <li>Animated beats static — reactions to user actions create emotional bond</li>
+          <li>Consistent personality across all touchpoints builds relationship over time</li>
+          <li>Characters that create shareable moments drive organic growth</li>
+        </ul>
+      </div>
+      <a href="https://raw.studio/blog/how-mascots-improve-user-experience/" class="ref-link" target="_blank">Read the full article →</a>
+    </div>
+  </div>
+
+  <!-- Naavik Gamification -->
+  <div class="ref-card">
+    <img src="images/naavik-gamification.png" alt="New Horizons in Habit-Building Gamification">
+    <div class="ref-card-body">
+      <h3>Naavik: New Horizons in Habit-Building Gamification</h3>
+      <div class="ref-type">Industry Deep Dive · Market Analysis · Gamification Strategy</div>
+      <p>A games-industry perspective on how gamification is evolving in habit-building apps. Covers Duolingo, Finch, Habitica, and others through the lens of game design principles — engagement loops, reward schedules, and retention mechanics.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Gamification done right benefits both user and developer — it's not exploitative</li>
+          <li>Finch's onboarding commits users to tasks immediately, creating instant investment</li>
+          <li>The gaming industry's engagement expertise is being successfully adapted to wellness</li>
+          <li>Duolingo's gamification drove 4.5x DAU growth — the business case is proven</li>
+        </ul>
+      </div>
+      <a href="https://naavik.co/deep-dives/deep-dives-new-horizons-in-gamification/" class="ref-link" target="_blank">Read the deep dive →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 5: RESOURCES ==================== -->
+<div class="section" id="resources">
+  <div class="section-header">
+    <span class="section-tag" style="background: var(--purple); color: #000;">05</span>
+    <h2>Design Resources & Trends</h2>
+  </div>
+  <p class="section-desc">Industry articles, trend reports, and design resources that provide broader context for your design decisions.</p>
+
+  <!-- Big Human Mindfulness Trends -->
+  <div class="ref-card">
+    <img src="images/mindfulness-trends.png" alt="6 Trends in Mindfulness App Design in 2026">
+    <div class="ref-card-body">
+      <h3>Big Human: 6 Trends in Mindfulness App Design in 2026</h3>
+      <div class="ref-type">Trend Report · Dec 2025 · Industry Analysis</div>
+      <p>A trend report from Big Human covering the cutting edge of mindfulness app design. Covers unique visual approaches (like Ten Percent Happier's bold lavender + red palette), smartwatch integration patterns, ethical push notifications, AR/VR experiences, and community features.</p>
+      <div class="takeaways">
+        <h4>Key Takeaways for Your App</h4>
+        <ul>
+          <li>Ethical notifications: self-aware, gentle reminders that feel welcome, not nagging</li>
+          <li>Apple Watch: small real estate means the experience matters more than visuals</li>
+          <li>InsightTimer's "people meditating now" counter creates instant community feel</li>
+          <li>AI-driven personalization based on biometric data is the next frontier</li>
+        </ul>
+      </div>
+      <a href="https://www.bighuman.com/blog/trends-in-mindfulness-app-design" class="ref-link" target="_blank">Read the trend report →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="footer">
+  <p><strong>Notes on this document:</strong></p>
+  <p style="margin-top: 8px;">Screenshots were captured on May 17, 2026 using a headless browser at 1440×900 viewport. Some sites (Calm, Toggl, Duolingo, DesignMonks) did not render in the headless browser — links are provided for manual viewing. Cookie banners appear in some captures. All screenshots are for personal design reference purposes.</p>
+  <p style="margin-top: 16px;">To expand this reference, consider also visiting the app store pages for these apps directly to see their latest marketing screenshots, and exploring the Dribbble and Behance galleries linked above for specific UI patterns relevant to your current design phase.</p>
+</div>
+
+</body>
+</html>
